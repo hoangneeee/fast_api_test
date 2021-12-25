@@ -1,14 +1,16 @@
 from fastapi import FastAPI
 
-from .database import engine
-from .schemas import Blog
-from .models import Base
+from .database import engine, Base
+from .routers import blog, user
 
 app = FastAPI()
 
 Base.metadata.create_all(engine)
 
+app.include_router(blog.router)
+app.include_router(user.router)
 
-@app.post('/blog/')
-def create(request: Blog):
-    return request
+
+
+
+
